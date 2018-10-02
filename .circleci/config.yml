@@ -78,3 +78,13 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+      # CircleCI + CodeClimate
+      # https://github.com/rdunlop/codeclimate_circle_ci_coverage
+      - store_artifacts:
+          path: coverage/.resultset.json
+          prefix: coverage # must be called coverage to be picked up by the report_coverage script
+
+      - deploy:
+          name: Merge and copy coverage data
+          command: bundle exec report_coverage
