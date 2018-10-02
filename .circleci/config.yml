@@ -14,12 +14,6 @@ jobs:
           - POSTGRES_USER: tandem_labs_mvp
           - POSTGRES_DB: tandem_labs_mvp_test
           - POSTGRES_PASSWORD: ""
-      - image: timescale/timescaledb:latest
-        command: -p 32771
-        environment:
-          - POSTGRES_USER: tandem_labs_mvp_test
-          - POSTGRES_DB: tandem_labs_mvp_test
-          - POSTGRES_PASSWORD: tandem_labs_mvp_test
     steps:
       - checkout
 
@@ -28,7 +22,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          name: Install Dependencies
+          name: Install Yarn Packages
           command: yarn install
 
       - save_cache:
@@ -38,33 +32,49 @@ jobs:
             - ~/.cache/yarn
 
       # Restore bundle cache
-      - type: cache-restore
-        key: tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          name: Restore Gemfile Cache
+          keys:
+            - tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      - run:
+          name: Install Gemfile
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       # Store bundle cache
-      - type: cache-save
+      - save_cache:
+        name: Save Gemfile Cache
         key: tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
         paths:
-          - vendor/bundle
+          - ./vendor/bundle
 
       # Database setup
-      - run: bundle exec rails db:create db:schema:load pipeline:db:schema:load db:seed
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:schema:load db:seed
 
       # Linter
       - run: bundle exec rubocop
 
       # Run rspec in parallel
-      - type: shell
+      - run:
+        name: run tests
         command: |
-          bundle exec rspec --profile 10 \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+          bundle exec rspec --format progress \
+                          --format RspecJunitFormatter \
+                          --out /tmp/test-results/rspec.xml \
+                          --format progress \
+                          $TEST_FILES
+
+
+      # Store results
+      - store_test_results:
+          path: /tmp/test-results
 
       # Save artifacts
-      - type: store_test_results
-        path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
