@@ -1,0 +1,80 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci-tandem-labs-mvp-web-app
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          - PG_HOST: 127.0.0.1
+          - PG_USER: tandem_labs_mvp
+          - RAILS_ENV: test
+          - RACK_ENV: test
+      - image: circleci/postgres:10.4-postgis-ram
+        environment:
+          - POSTGRES_USER: tandem_labs_mvp
+          - POSTGRES_DB: tandem_labs_mvp_test
+          - POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Yarn Packages
+          command: yarn install
+
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # Restore bundle cache
+      - restore_cache:
+          name: Restore Gemfile Cache
+          keys:
+            - tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run:
+          name: Install Gemfile
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          name: Save Gemfile Cache
+          key: tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vendor/bundle
+
+      # Database setup
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:schema:load db:seed
+
+      # Linter
+      - run: bundle exec rubocop
+
+      # Run rspec in parallel
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
+
+
+      # Store results
+      - store_test_results:
+          path: /tmp/test-results
+
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
