@@ -1,6 +1,7 @@
 # Tandem Labs MVP
 
 [![CircleCI](https://circleci.com/gh/tandem-labs/mvp.svg?style=svg&circle-token=dc52b6c195bfce39c2e2e038218bafc99ce4b694)](https://circleci.com/gh/tandem-labs/mvp) [![Coverage Status](https://coveralls.io/repos/github/tandem-labs/mvp/badge.svg?branch=master&t=xQse3d)](https://coveralls.io/github/tandem-labs/mvp?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a034c650141e6ca68212/maintainability)](https://codeclimate.com/repos/5bb307eefb22c402590084f3/maintainability)
 
 ## Development
 
