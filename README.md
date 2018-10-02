@@ -1,5 +1,9 @@
 # Tandem Labs MVP
 
+[![CircleCI](https://circleci.com/gh/tandem-labs/mvp.svg?style=svg)](https://circleci.com/gh/tandem-labs/mvp)
+
+[![Coverage Status](https://coveralls.io/repos/github/tandem-labs/mvp/badge.svg?branch=master&t=xQse3d)](https://coveralls.io/github/tandem-labs/mvp?branch=master)
+
 ## Development
 
 ### Install development environment on Mac OSX
