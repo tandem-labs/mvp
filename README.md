@@ -1,24 +1,52 @@
-# README
+# Tandem Labs MVP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
-
-* Ruby version
+### Install development environment on Mac OSX
 
 * System dependencies
 
-* Configuration
+  * A Postgres database server; typically installed using home brew
+    * `brew install postgresql`
+  * Use `rvm` for ruby version management
+    * Ensure you have the right ruby version installed `rvm install ruby-2.5.1`
+    * `.ruby-version` file should auto load correct ruby version when you `cd` into the folder
 
-* Database creation
+* Setup
+  * Run `bundle` to install gem dependencies
+  * Run `rails db:create db:schema:load db:migrate db:seed db:test:prepare` to setup your local database
+  * Start the application: `rails s`
 
-* Database initialization
+### Running Tests
 
-* How to run the test suite
+* `rake` will run the default rake task which runs the specs and lint check
+* Alternatively they can be run independently:
+  * `rspec spec`
+  * `rubocop`
 
-* Services (job queues, cache servers, search engines, etc.)
+NOTE: depending on your environment you may need to prefix your rails commands with `bundle exec` or use `bin/rails`. You might consider using a unix `alias` to avoid having to do this every time.
 
-* Deployment instructions
+### Testing email in development
 
-* ...
+We use mailcatcher to catch outgoing email and display in the browser in development:
+
+* Install with `gem install mailcatcher --no-ri --no-rdoc`
+* Run from command line: `mailcatcher`
+* View emails in your browser at: http://127.0.0.1:1080
+
+## Deployment
+
+We use Heroku for hosting. We have both a staging and a production account:
+
+* Staging: `tandem-labs-mvp-staging`
+* Production: `tandem-labs-mvp-production`
+
+To deploy:
+
+* Create a new Github PR which will create a new Heroku Pipeline app
+* Get approval from QA & the product owner on the PR app URL
+* Get approval from another developer on your PR code
+* Merge the PR into master via Github which will trigger a build on the staging app
+* Once built, sanity-check one more time on the staging app URL
+* Click "Promote to Production"
+* Once live, sanity-check one last time on the production app URL

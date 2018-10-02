@@ -1,0 +1,70 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci-tandem-labs-mvp-web-app
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          - PG_HOST: 127.0.0.1
+          - PG_USER: tandem_labs_mvp
+          - RAILS_ENV: test
+          - RACK_ENV: test
+      - image: circleci/postgres:10.4-postgis-ram
+        environment:
+          - POSTGRES_USER: tandem_labs_mvp
+          - POSTGRES_DB: tandem_labs_mvp_test
+          - POSTGRES_PASSWORD: ""
+      - image: timescale/timescaledb:latest
+        command: -p 32771
+        environment:
+          - POSTGRES_USER: tandem_labs_mvp_test
+          - POSTGRES_DB: tandem_labs_mvp_test
+          - POSTGRES_PASSWORD: tandem_labs_mvp_test
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install
+
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # Restore bundle cache
+      - type: cache-restore
+        key: tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Store bundle cache
+      - type: cache-save
+        key: tandem-labs-mvp-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      # Database setup
+      - run: bundle exec rails db:create db:schema:load pipeline:db:schema:load db:seed
+
+      # Linter
+      - run: bundle exec rubocop
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Save artifacts
+      - type: store_test_results
+        path: /tmp/test-results

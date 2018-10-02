@@ -19,7 +19,6 @@
 
 # Ignore uploaded files in development
 /storage/*
-!/storage/.keep
 
 /node_modules
 /yarn-error.log
@@ -29,3 +28,13 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/node_modules
+/yarn-error.log
+
+.env
+spec/examples.txt
+.DS_Store
+
+# simplecov artifacts
+coverage/*
