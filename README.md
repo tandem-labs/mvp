@@ -14,7 +14,7 @@
 
 * Setup
   * Run `bundle` to install gem dependencies
-  * Run `rails db:create db:schema:load db:migrate db:seed db:test:prepare` to setup your local database
+  * Run `rails db:create db:migrate db:seed db:test:prepare` to setup your local database
   * Start the application: `rails s`
 
 ### Running Tests
