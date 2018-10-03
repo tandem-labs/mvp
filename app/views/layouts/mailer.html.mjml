@@ -1,0 +1,64 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text font-family="Montserrat, sans-serif" font-size="14px" line-height="16px" />
+    </mj-attributes>
+    <mj-font name="Montserrat" href="https://fonts.googleapis.com/css?family=Montserrat" />
+    <mj-style inline="inline">
+      a {
+        color: #15B6AE;
+        font-family: Montserrat, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      a.nav-link {
+        color: #1E232A;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image align="left" width="150" src="https://placekitten.com/150/50"></mj-image>
+      </mj-column>
+    </mj-section>
+    <mj-divider border-color="#DBDCE0" border-width="1px"></mj-divider>
+
+    <%= yield %>
+
+    <mj-divider border-color="#DBDCE0" border-width="1px"></mj-divider>
+    <mj-section>
+      <mj-column>
+        <mj-image align="left" width="150" src="https://placekitten.com/150/50"></mj-image>
+        <mj-text>
+          123 Fake St
+          <br />
+          Anywhere, USA
+        </mj-text>
+      </mj-column>
+      <mj-column align="right">
+        <mj-social align="right" font-size="16px" icon-size="24px" mode="horizontal">
+          <mj-social-element name="facebook" href="https://www.facebook.com" background-color="#1E232A"></mj-social-element>
+          <mj-social-element name="twitter" href="https://twitter.com" background-color="#1E232A"></mj-social-element>
+          <mj-social-element name="instagram" href="https://www.instagram.com" background-color="#1E232A"></mj-social-element>
+          <mj-social-element name="linkedin" href="https://www.linkedin.com" background-color="#1E232A"></mj-social-element>
+          <mj-social-element href="https://www.youtube.com" background-color="#1E232A" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/youtube.png"></mj-social-element>
+        </mj-social>
+        <mj-text align="right">
+          1-800-555-1212
+          <br />
+          <a href="https://www.example.com">www.example.com</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-divider border-color="#DBDCE0" border-width="1px"></mj-divider>
+    <mj-section>
+      <mj-text align="center">
+        <a href="mailto:support@example.com">Contact Us</a>
+        |
+        <a href="https://www.example.com">Manage Your Subscription Preferences</a>
+      </mj-text>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -1,0 +1,25 @@
+<mj-section>
+  <mj-column>
+    <mj-text class="paragraph">
+      Hello <%= @resource.first_name %>,
+    </mj-text>
+
+    <% if @resource.try(:unconfirmed_email?) %>
+      <mj-text class="paragraph">
+        We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.
+      </mj-text>
+    <% else %>
+      <mj-text class="paragraph">
+        We're contacting you to notify you that your email has been changed to <%= @resource.email %>.
+      </mj-text>
+    <% end %>
+
+    <mj-text class="paragraph">
+      If you have any questions or issues of any kind, feel free to contact us and we will get back to you quickly.
+    </mj-text>
+
+    <mj-text class="paragraph">
+      All the best!
+    </mj-text>
+  </mj-column>
+</mj-section>
