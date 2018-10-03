@@ -1,8 +1,7 @@
 {
   "name": "tandem-labs-mvp",
   "description": "Boilerplate MVP SaaS Web App Created by Tandem Labs",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "NEW_RELIC_LICENSE_KEY": {
       "required": true
@@ -29,15 +28,8 @@
       "required": true
     }
   },
-  "formation": {
-  },
-  "addons": [
-    "newrelic",
-    "papertrail",
-    "heroku-postgresql",
-    "rollbar",
-    "sendgrid"
-  ],
+  "formation": {},
+  "addons": [],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
