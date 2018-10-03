@@ -1,0 +1,60 @@
+<div class="container pt-lg-md">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow zindex-100">
+        <div class="card-body px-md-5 py-5">
+          <div class="text-center mb-5">
+            <h6 class="h3">Sign Up</h6>
+            <p class="text-muted mb-0">Create your account</p>
+          </div>
+          <span class="clearfix"></span>
+          <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
+            <%= f.hidden_field :invitation_token %>
+
+            <div class="form-group">
+              <label class="form-control-label">First Name</label>
+              <div class="input-group">
+                <%= f.text_field :first_name, class: "form-control", placeholder: "First Name" %>
+                <%= f.error_message_for :first_name %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Last Name</label>
+              <div class="input-group">
+                <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
+                <%= f.error_message_for :last_name %>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label class="form-control-label">Password</label>
+              <div class="input-group">
+                <%= f.password_field :password, autocomplete: "off", class: "form-control", id: "input-password", placeholder: "Password" %>
+                <%= f.error_message_for :password %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Confirm Password</label>
+              <div class="input-group">
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", id: "input-password-confirm", placeholder: "Confirm Password" %>
+                <%= f.error_message_for :password_confirmation %>
+              </div>
+            </div>
+            <div class="my-4">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" id="customCheckRegister" type="checkbox">
+                <label class="custom-control-label" for="customCheckRegister">
+                  <span>I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</span>
+                </label>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col-sm-7">
+                <%= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-primary mb-3 mb-sm-0" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

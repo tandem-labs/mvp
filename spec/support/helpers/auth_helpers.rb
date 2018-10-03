@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+def accept_invitation(
+  first_name:,
+  last_name:,
+  password_confirmation:,
+  password:,
+  user:
+)
+  visit accept_user_invitation_url(
+    user,
+    invitation_token: user.raw_invitation_token
+  )
+
+  fill_in "First Name", with: first_name
+  fill_in "Last Name", with: last_name
+  fill_in "Password", with: password
+  fill_in "Confirm Password", with: password_confirmation
+  click_button "Sign Up"
+end
+
 def login(email: nil, password: nil)
   visit "/login"
   fill_in "Email", with: email

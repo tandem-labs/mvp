@@ -10,6 +10,7 @@ class User < ApplicationRecord
   devise \
     :confirmable,
     :database_authenticatable,
+    :invitable,
     :lockable,
     :recoverable,
     :registerable,
