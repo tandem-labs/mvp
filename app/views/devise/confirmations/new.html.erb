@@ -1,0 +1,28 @@
+<%- @show_breadcrumbs = false %>
+<div class="authentication">
+  <div class="container">
+    <div class="col-md-12 content-center">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 offset-lg-3">
+          <div class="card-plain">
+            <div class="header">
+              <h5>Resend Email Confirmation Instructions</h5>
+            </div>
+            <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+              <div class="input-group">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control" %>
+                <span class="input-group-addon">
+                  <i class="zmdi zmdi-account-circle"></i>
+                </span>
+                <%= f.error_message_for :email %>
+              </div>
+              <div class="footer">
+                <%= f.submit "Resend", class: "btn btn-primary btn-round btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

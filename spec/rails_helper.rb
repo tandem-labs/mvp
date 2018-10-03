@@ -94,7 +94,7 @@ RSpec.configure do |config|
   # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
   config.use_transactional_fixtures = false
 
-  [ActiveRecord::Base, Pipeline::Base].each do |model|
+  [ActiveRecord::Base].each do |model|
     # ActiveRecord::Base.establish_connection db
 
     config.before(:suite) do

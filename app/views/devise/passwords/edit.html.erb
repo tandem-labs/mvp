@@ -1,0 +1,39 @@
+<%- @show_breadcrumbs = false %>
+<div class="authentication">
+  <div class="container">
+    <div class="col-md-12 content-center">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 offset-lg-3">
+          <div class="card-plain">
+            <div class="header">
+              <h5>Change Your Password</h5>
+            </div>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+              <%= f.hidden_field :reset_password_token %>
+
+              <%= f.error_message_for :reset_password_token %>
+
+              <div class="input-group">
+                <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control", placeholder: "New Password" %>
+                <span class="input-group-addon">
+                  <i class="zmdi zmdi-lock"></i>
+                </span>
+                <%= f.error_message_for :password %>
+              </div>
+              <div class="input-group">
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm Password" %>
+                <span class="input-group-addon">
+                  <i class="zmdi zmdi-lock"></i>
+                </span>
+                <%= f.error_message_for :password_confirmation %>
+              </div>
+              <div class="footer">
+                <%= f.submit "Change Password", class: "btn btn-primary btn-round btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<%- @show_breadcrumbs = false %>
+<div class="authentication">
+  <div class="container">
+    <div class="col-md-12 content-center">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 offset-lg-3">
+          <div class="card-plain">
+            <div class="header">
+              <h5>Forgot Password</h5>
+            </div>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <div class="input-group">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
+                <span class="input-group-addon">
+                  <i class="zmdi zmdi-account-circle"></i>
+                </span>
+                <%= f.error_message_for :email %>
+              </div>
+              <div class="footer">
+                <%= f.submit "Send Reset Password Email", class: "btn btn-primary btn-round btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

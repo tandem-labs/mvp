@@ -1,0 +1,19 @@
+<mj-section>
+  <mj-column>
+    <mj-text class="paragraph">
+      Hello <%= @resource.first_name %>,
+    </mj-text>
+
+    <mj-text class="paragraph">
+      Thank you for signing up! Please confirm your email <a href="<%= confirmation_url(@resource, confirmation_token: @token) %>">here</a>.
+    </mj-text>
+
+    <mj-text class="paragraph">
+      If you have any questions or issues of any kind, feel free to contact us and we will get back to you quickly!
+    </mj-text>
+
+    <mj-text class="paragraph">
+      All the best!
+    </mj-text>
+  </mj-column>
+</mj-section>

@@ -1,0 +1,41 @@
+$green: #80bc3e;
+
+a {
+  color: $green;
+}
+
+.bg-primary {
+  background-color: $green !important;
+}
+
+.btn-primary {
+  background-color: $green;
+  border-color: $green;
+}
+
+.error-message {
+  color: #ff0039;
+  display: block;
+  font-size: 80%;
+  margin-top: 0.25rem;
+  width: 100%;
+}
+
+img {
+  &.logo {
+    height: 35px;
+  }
+}
+
+.field_with_errors {
+  width: 100%;
+
+  input {
+    border-color: #ff0039;
+
+    &:focus {
+      border-color: #ff0039;
+      box-shadow: 0 0 0 0.2rem rgba(255, 0, 57, 0.25);
+    }
+  }
+}

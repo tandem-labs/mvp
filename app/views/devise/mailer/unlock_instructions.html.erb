@@ -1,0 +1,31 @@
+<mj-section>
+  <mj-column>
+    <mj-text class="paragraph">
+      Hello <%= @resource.first_name %>,
+    </mj-text>
+
+    <mj-text class="paragraph">
+      Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    </mj-text>
+
+    <mj-text class="paragraph">
+      Click the link below to unlock your account:
+    </mj-text>
+
+    <mj-text class="paragraph">
+      <%= link_to "Unlock my account", unlock_url(@resource, unlock_token: @token) %>
+    </mj-text>
+
+    <mj-text class="paragraph">
+      If this wasn't you, please let us know, as this could mean that someone is trying to access your account.
+    </mj-text>
+
+    <mj-text class="paragraph">
+      If you have any questions or issues of any kind, feel free to contact us and we will get back to you quickly.
+    </mj-text>
+
+    <mj-text class="paragraph">
+      All the best!
+    </mj-text>
+  </mj-column>
+</mj-section>
