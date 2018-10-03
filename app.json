@@ -3,6 +3,27 @@
   "description": "Boilerplate MVP SaaS Web App Created by Tandem Labs",
   "scripts": {},
   "env": {
+    "DATABASE_URL": {
+      "required": true
+    },
+    "DEVISE_SECRET": {
+      "required": true
+    },
+    "DEVISE_PEPPER": {
+      "required": true
+    },
+    "EMAIL_FROM_ADDRESS": {
+      "required": true
+    },
+    "EMAIL_HOST": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
     "NEW_RELIC_LICENSE_KEY": {
       "required": true
     },
@@ -12,10 +33,25 @@
     "PAPERTRAIL_API_TOKEN": {
       "required": true
     },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
     "ROLLBAR_ACCESS_TOKEN": {
       "required": true
     },
     "ROLLBAR_ENDPOINT": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
       "required": true
     },
     "SENDGRID_PASSWORD": {
@@ -24,11 +60,18 @@
     "SENDGRID_USERNAME": {
       "required": true
     },
-    "DATABASE_URL": {
+    "SHOW_MAILER_PREVIEWS": {
       "required": true
     }
   },
-  "formation": {},
+  "formation": {
+    "worker": {
+      "quantity": 0
+    },
+    "web": {
+      "quantity": 1
+    }
+  },
   "addons": [],
   "buildpacks": [
     {
