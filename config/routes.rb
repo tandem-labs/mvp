@@ -2,11 +2,12 @@
 
 Rails.application.routes.draw do
   namespace :admin do
-      resources :users
-      resources :roles
+    resources :users
+    resources :roles
 
-      root to: "users#index"
-    end
+    root to: "users#index"
+  end
+
   devise_for \
     :users,
     controllers: {
