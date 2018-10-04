@@ -8,10 +8,20 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_admin
+    include Pundit
 
-    def authenticate_admin
-      # Add authentication logic here.
+    before_action :authenticate_user
+
+    rescue_from Pundit::NotAuthorizedError, with: :render_404
+
+    protected
+
+    def render_404
+      raise ActionController::RoutingError, "Not Found"
+    end
+
+    def authenticate_user
+      authorize :administrate, :administrate?
     end
 
     # Override this value to specify the number of elements to display at a time
